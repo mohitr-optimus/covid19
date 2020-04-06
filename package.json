@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.config.js --hot",
     "build": "webpack --config webpack.prod.config.js",
-    "lint": "eslint src/**"
+    "lint": "eslint src/**/*.js"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
