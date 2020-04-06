@@ -9,7 +9,8 @@
     "lint": "eslint src/**/*.js",
     "pretty": "prettier src/**/*.js",
     "lint-fix": "eslint --fix src/**/*.js",
-    "pretty-fix": "prettier --write src/**/*.js"
+    "pretty-fix": "prettier --write src/**/*.js",
+    "analyze": "source-map-explorer dist/**/*.*"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -44,6 +45,7 @@
     "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "source-map-explorer": "^2.4.2",
     "webpack-dev-server": "^3.10.3"
   }
 }

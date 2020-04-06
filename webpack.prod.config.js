@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -23,7 +24,15 @@ module.exports = {
             {
                 test:/\.(scss|sass)$/,
                 use: [
-                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
                 ]
             },
             {
@@ -39,6 +48,7 @@ module.exports = {
             }
         ]
     },
+    devtool: 'inline-source-map',
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
@@ -49,6 +59,11 @@ module.exports = {
             template: './index.hbs',
             description: 'Volunteer-driven crowdsourced initiative to track the spread of Coronavirus (COVID-19) in India',
             filename: 'index.html'
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            filename: 'sourcemaps/[file].map',
+            exclude: /\.(css|scss|sass)$/,
+            publicPath: 'https://localhost:9000/'
         })
     ]
 }
