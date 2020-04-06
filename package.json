@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.config.js --hot",
     "build": "webpack --config webpack.prod.config.js",
-    "lint": "eslint src/**/*.js"
+    "lint": "eslint src/**/*.js",
+    "pretty": "prettier src/**/*.js",
+    "lint-fix": "eslint --fix src/**/*.js",
+    "pretty-fix": "prettier --write src/**/*.js"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -37,8 +40,8 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
-    "global": "^4.4.0",
     "handlebars": "^4.7.6",
+    "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "webpack-dev-server": "^3.10.3"
