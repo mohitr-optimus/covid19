@@ -27,7 +27,7 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: ['babel-loader', 'eslint-loader']
+                use: ['babel-loader']
             },
             {
                 test: /\.(hbs)$/,
@@ -40,7 +40,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Covid19',
-            template: 'src/index.hbs',
+            template: './index.hbs',
             description: 'Volunteer-driven crowdsourced initiative to track the spread of Coronavirus (COVID-19) in India',
             filename: 'index.html'
         })
