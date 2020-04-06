@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: {
@@ -64,6 +65,11 @@ module.exports = {
             filename: 'sourcemaps/[file].map',
             exclude: /\.(css|scss|sass)$/,
             publicPath: 'https://localhost:9000/'
+        }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false,
+            reportFilename: '../bundleAnalyzer/report.html'
         })
     ]
 }
