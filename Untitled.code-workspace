@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "/Users/mohpuroh/Documents/Projects/Cartier/cms-car"
+		},
+		{
+			"path": "/Users/mohpuroh/Documents/Projects/POCs/Webpack"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.classpath": true,
+			"**/.project": true,
+			"**/.settings": true,
+			"**/.factorypath": true
+		}
+	}
+}
