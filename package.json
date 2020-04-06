@@ -10,7 +10,7 @@
     "pretty": "prettier src/**/*.js",
     "lint-fix": "eslint --fix src/**/*.js",
     "pretty-fix": "prettier --write src/**/*.js",
-    "analyze": "source-map-explorer dist/**/*.*"
+    "analyze": "source-map-explorer dist/**/*.* --only-mapped"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
