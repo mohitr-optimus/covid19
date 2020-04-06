@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.config.js --hot",
     "build": "webpack --config webpack.prod.config.js",
-    "lint": "eslint src/**/*.js",
-    "pretty": "prettier src/**/*.js",
-    "lint-fix": "eslint --fix src/**/*.js",
-    "pretty-fix": "prettier --write src/**/*.js",
+    "lint": "eslint \"{,!(node_modules|dist|bundleAnalyzer|.history)/**/}*.{js,jsx}\"",
+    "pretty": "prettier \"{,!(node_modules|dist|bundleAnalyzer|.history)/**/}*.{js,jsx}\"",
+    "lint-fix": "eslint --fix \"{,!(node_modules|dist|bundleAnalyzer|.history)/**/}*.{js,jsx}\"",
+    "pretty-fix": "prettier --write \"{,!(node_modules|dist|bundleAnalyzer|.history)/**/}*.{js,jsx}\"",
     "analyze": "source-map-explorer dist/**/*.* --only-mapped"
   },
   "devDependencies": {
@@ -19,6 +19,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.4.2",
     "eslint": "^6.8.0",
@@ -42,11 +43,22 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/runtime": "^7.9.2",
+    "axios": "^0.19.2",
+    "bloomer": "^0.6.5",
+    "bulma": "^0.8.1",
+    "covid19-api": "^1.1.8",
+    "covidtracker": "^1.1.0",
+    "deparam.js": "^2.1.1",
     "handlebars": "^4.7.6",
     "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
+    "react-select": "^3.1.0",
+    "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "source-map-explorer": "^2.4.2",
     "webpack-dev-server": "^3.10.3"
