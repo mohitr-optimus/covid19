@@ -4,9 +4,9 @@
         "es6": true
     },
     "extends": [
-        "plugin:react/recommended",
         "airbnb",
-        "prettier"
+        "prettier",
+        "prettier/react"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -27,7 +27,8 @@
     "ignorePatterns": [
         "webpack.*",
         "node_modules/",
-        "babel.*"
+        "babel.*",
+        "webpack-plugin"
     ],
     "rules": {
         "react/jsx-filename-extension": [
@@ -50,6 +51,9 @@
                 "useTabs": true,
                 "tabWidth": 2
             }
-        ]
+        ],
+        "react/jsx-indent-props": [0, "first"],
+        "react/jsx-indent": "off",
+        "react/prop-types": 0
     }
 }

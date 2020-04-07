@@ -1,48 +1,22 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 
-module.exports = {
-	entry: {
-		index: './src/index.js',
-	},
+module.exports = merge(common, {
 	output: {
 		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, './dist'),
-		publicPath: '',
 	},
 	mode: 'development',
-	devtool: 'inline-source-map',
 	devServer: {
 		contentBase: path.resolve(__dirname, './dist'),
 		index: 'index.html',
 		port: 9000,
 	},
 	module: {
-		rules: [
-			{
+		rules: [{
 				test: /\.(css|scss|sass)$/,
 				use: ['style-loader', 'css-loader', 'sass-loader'],
 			},
-			{
-				test: /\.(js|jsx)$/,
-				exclude: /node_modules/,
-				use: ['babel-loader', 'eslint-loader'],
-			},
-			{
-				test: /\.(hbs)$/,
-				use: {
-					loader: 'handlebars-loader',
-				},
-			},
 		],
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			title: 'Covid19',
-			template: './index.hbs',
-			description:
-				'Volunteer-driven crowdsourced initiative to track the spread of Coronavirus (COVID-19) in India',
-			filename: 'index.html',
-		}),
-	],
-};
+	}
+});

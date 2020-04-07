@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Box, Columns, Heading, Column, Title, Subtitle } from 'bloomer';
+import { Box, Columns, Column, Title, Subtitle } from 'bloomer';
 import Select from 'react-select';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import LegendCircle from '../LegendCircle';
+import SideInfo from '../SideInfo';
 
 const apiEndpoint = 'https://pomber.github.io/covid19/timeseries.json';
 
@@ -21,7 +23,10 @@ class Drawer extends PureComponent {
 			data: [],
 			selectedCountry: 'Norway',
 			countries: [],
-			dateIntervals: dates.map((date) => ({ label: date, value: date })),
+			dateIntervals: dates.map((date) => ({
+				label: date,
+				value: date,
+			})),
 			selectedDateInterval: dates[0],
 			width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
 		};
@@ -40,7 +45,9 @@ class Drawer extends PureComponent {
 		const width =
 			window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-		this.setState({ width });
+		this.setState({
+			width,
+		});
 	};
 
 	getCountryByIP = () => {
@@ -94,6 +101,7 @@ class Drawer extends PureComponent {
 						value: country,
 					})),
 				});
+				return false;
 			});
 	};
 
@@ -133,6 +141,16 @@ class Drawer extends PureComponent {
 		);
 	};
 
+	getGraphWidth = (width) => {
+		if (width > 980) {
+			return 480;
+		}
+		if (width > 720) {
+			return width / 2 - 40;
+		}
+		return width - 40;
+	};
+
 	render() {
 		const {
 			data,
@@ -144,49 +162,56 @@ class Drawer extends PureComponent {
 		} = this.state;
 
 		return (
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					paddingTop: 12,
-					paddingBottom: 24,
-				}}
-			>
+			<div style={{ display: 'flex', justifyContent: 'center', paddingTop: 12, paddingBottom: 24 }}>
 				<div>
 					<Box style={{ marginTop: 12 }}>
 						<Columns>
 							<Column isSize={{ mobile: 12, desktop: 4 }}>
 								<Select
 									isClearable
-									placeholder={<b style={{ color: '#3e3e3e' }}>{selectedCountry}</b>}
+									placeholder={<b style={{ color: '#3e3e3e' }}> {selectedCountry} </b>}
 									value={selectedCountry}
 									onChange={this.handleCountrySelect}
 									options={countries}
-								/>
-							</Column>
-							<Column isSize={{ mobile: 12, desktop: 4 }}>
+								/>{' '}
+							</Column>{' '}
+							<Column
+								isSize={{
+									mobile: 12,
+									desktop: 4,
+								}}
+							>
 								<Select
 									isSearchable={false}
-									placeholder={<b>{selectedDateInterval}</b>}
+									placeholder={<b> {selectedDateInterval} </b>}
 									value={selectedDateInterval}
 									onChange={this.handleIntervalSelect}
 									options={dateIntervals}
-								/>
-							</Column>
-							<Column isSize={{ mobile: 12, desktop: 4 }}>
+								/>{' '}
+							</Column>{' '}
+							<Column
+								isSize={{
+									mobile: 12,
+									desktop: 4,
+								}}
+							>
 								<Subtitle isSize={5} hasTextAlign='right'>
 									<em>
-										Numbers indicate total instances <b>by date</b>, not per date.
-									</em>
-								</Subtitle>
-							</Column>
-						</Columns>
+										Numbers indicate total instances <b> by date </b>, not per date.{' '}
+									</em>{' '}
+								</Subtitle>{' '}
+							</Column>{' '}
+						</Columns>{' '}
 					</Box>
-
-					<Box style={{ padding: 24 }}>
+					<Box
+						style={{
+							padding: 24,
+						}}
+					>
 						<Title isSize={4}>
-							Total Numbers for {selectedCountry} in {selectedDateInterval}
-						</Title>
+							Total Numbers for {selectedCountry} in
+							{selectedDateInterval}{' '}
+						</Title>{' '}
 						<div
 							style={{
 								display: 'flex',
@@ -194,10 +219,10 @@ class Drawer extends PureComponent {
 								flexWrap: 'wrap',
 							}}
 						>
-							{Object.keys(colors).map((type, index) => (
+							{Object.keys(colors).map((type) => (
 								<LegendCircle key={type} type={type} color={colors[type]} />
-							))}
-						</div>
+							))}{' '}
+						</div>{' '}
 						<AreaChart
 							width={width > 980 ? 960 : width - 48}
 							height={500}
@@ -219,29 +244,31 @@ class Drawer extends PureComponent {
 								dataKey='diagnosed'
 								stroke={colors.diagnosed}
 								fill={colors.diagnosed}
-							/>
+							/>{' '}
 							<Area
 								type='monotone'
 								dataKey='unrecovered'
 								stroke={colors.unrecovered}
 								fill={colors.unrecovered}
-							/>
+							/>{' '}
 							<Area
 								type='monotone'
 								dataKey='recovered'
 								stroke={colors.recovered}
 								fill={colors.recovered}
-							/>
-							<Area type='monotone' dataKey='died' stroke={colors.died} fill={colors.died} />
-						</AreaChart>
+							/>{' '}
+							<Area type='monotone' dataKey='died' stroke={colors.died} fill={colors.died} />{' '}
+						</AreaChart>{' '}
 					</Box>
-
-					<Box style={{ padding: 24 }}>
+					<Box
+						style={{
+							padding: 24,
+						}}
+					>
 						<Title isSize={4}>
 							Numbers in detail for
-							{selectedCountry}{' '}
+							{selectedCountry}
 						</Title>
-
 						<div
 							style={{
 								display: 'flex',
@@ -252,9 +279,13 @@ class Drawer extends PureComponent {
 								flexWrap: 'wrap',
 							}}
 						>
-							<div style={{ flexBasis: 300 }}>
+							<div
+								style={{
+									flexBasis: 300,
+								}}
+							>
 								<AreaChart
-									width={width > 980 ? 480 : width > 720 ? width / 2 - 40 : width - 40}
+									width={this.getGraphWidth(width)}
 									height={200}
 									data={data}
 									syncId='date'
@@ -274,8 +305,8 @@ class Drawer extends PureComponent {
 										dataKey='diagnosed'
 										stroke={colors.diagnosed}
 										fill={colors.diagnosed}
-									/>
-								</AreaChart>
+									/>{' '}
+								</AreaChart>{' '}
 							</div>
 
 							<SideInfo
@@ -284,7 +315,6 @@ class Drawer extends PureComponent {
 								downText='diagnosed'
 							/>
 						</div>
-
 						<div
 							style={{
 								display: 'flex',
@@ -295,9 +325,13 @@ class Drawer extends PureComponent {
 								flexWrap: 'wrap',
 							}}
 						>
-							<div style={{ flexBasis: 300 }}>
+							<div
+								style={{
+									flexBasis: 300,
+								}}
+							>
 								<AreaChart
-									width={width > 980 ? 480 : width > 720 ? width / 2 - 40 : width - 40}
+									width={this.getGraphWidth(width)}
 									height={200}
 									data={data}
 									syncId='date'
@@ -317,8 +351,8 @@ class Drawer extends PureComponent {
 										dataKey='recovered'
 										stroke={colors.recovered}
 										fill={colors.recovered}
-									/>
-								</AreaChart>
+									/>{' '}
+								</AreaChart>{' '}
 							</div>
 
 							<SideInfo
@@ -338,7 +372,6 @@ class Drawer extends PureComponent {
 								downText='recovery rate'
 							/>
 						</div>
-
 						<div
 							style={{
 								display: 'flex',
@@ -349,9 +382,13 @@ class Drawer extends PureComponent {
 								flexWrap: 'wrap',
 							}}
 						>
-							<div style={{ flexBasis: 300 }}>
+							<div
+								style={{
+									flexBasis: 300,
+								}}
+							>
 								<AreaChart
-									width={width > 980 ? 480 : width > 720 ? width / 2 - 40 : width - 40}
+									width={this.getGraphWidth(width)}
 									height={200}
 									data={data}
 									syncId='date'
@@ -366,16 +403,19 @@ class Drawer extends PureComponent {
 									<XAxis dataKey='date' />
 									<YAxis />
 									<Tooltip />
-									<Area type='monotone' dataKey='died' stroke={colors.died} fill={colors.died} />
-								</AreaChart>
+									<Area
+										type='monotone'
+										dataKey='died'
+										stroke={colors.died}
+										fill={colors.died}
+									/>{' '}
+								</AreaChart>{' '}
 							</div>
-
 							<SideInfo
 								upText='total of'
 								center={data && data[data.length - 1] && data[data.length - 1].died}
 								downText='died'
 							/>
-
 							<SideInfo
 								upText='with'
 								downText='death rate'
@@ -386,57 +426,13 @@ class Drawer extends PureComponent {
 										(data[data.length - 1].died / data[data.length - 1].diagnosed) * 100,
 									)}%`
 								}
-							/>
-						</div>
-					</Box>
-				</div>
+							/>{' '}
+						</div>{' '}
+					</Box>{' '}
+				</div>{' '}
 			</div>
 		);
 	}
-}
-
-const legendCircleStyle = (color) => ({
-	width: 12,
-	height: 12,
-	borderRadius: '50%',
-	backgroundColor: color,
-	marginRight: 4,
-});
-
-function SideInfo({ upText, center, downText }) {
-	return (
-		<Subtitle
-			style={{
-				flexBasis: 120,
-				flexGrow: 2,
-				marginBottom: 0,
-				textAlign: 'right',
-				padding: 24,
-			}}
-		>
-			{upText}
-			<Heading style={{ fontSize: '2rem' }}>
-				<b>{center}</b>{' '}
-			</Heading>
-			{downText}
-		</Subtitle>
-	);
-}
-
-function LegendCircle({ type, color }) {
-	return (
-		<div
-			style={{
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				marginRight: 24,
-			}}
-		>
-			<div style={legendCircleStyle(color)} />
-			<Heading style={{ marginBottom: 0 }}>{type}</Heading>
-		</div>
-	);
 }
 
 export default Drawer;
