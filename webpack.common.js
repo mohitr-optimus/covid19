@@ -20,11 +20,13 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
-				exclude: /node_modules/,
-				use: ['babel-loader', 'eslint-loader'],
+                exclude: /node_modules/,
+                include: path.resolve(__dirname, 'src'),
+				use: ['babel-loader'],
 			},
 			{
-				test: /\.(hbs)$/,
+                test: /\.(hbs)$/,
+                include: path.resolve(__dirname, 'index.hbs'),
 				use: {
 					loader: 'handlebars-loader',
 				},
@@ -35,15 +37,15 @@ module.exports = {
 		extensions: ['.jsx', '.js'],
 	},
 	plugins: [
+        new webpack.DefinePlugin({
+            'window.__version__': _getVersion()
+        }),
 		new HtmlWebpackPlugin({
 			title: 'Covid19',
 			template: './index.hbs',
 			description:
 				'Volunteer-driven crowdsourced initiative to track the spread of Coronavirus (COVID-19) in India',
 			filename: 'index.html',
-		}),
-		new webpack.DefinePlugin({
-            'window.__version__': _getVersion()
         })
 	],
 };

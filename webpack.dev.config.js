@@ -1,8 +1,10 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
 
-module.exports = merge(common, {
+const mergedConfig = merge(common, {
 	output: {
 		filename: '[name].bundle.js',
 	},
@@ -20,3 +22,5 @@ module.exports = merge(common, {
 		],
 	}
 });
+
+module.exports = smp.wrap(mergedConfig);

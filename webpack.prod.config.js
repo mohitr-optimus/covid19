@@ -4,8 +4,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const common = require('./webpack.common.js');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const smp = new SpeedMeasurePlugin();
 
-module.exports = merge(common, {
+const mergedConfig = merge(common, {
 	output: {
 		filename: './js/[name].bundle.[hash].js',
     },
@@ -45,3 +47,5 @@ module.exports = merge(common, {
         })
 	],
 });
+
+module.exports = smp.wrap(mergedConfig);
