@@ -28,7 +28,8 @@
         "webpack.*",
         "node_modules/",
         "babel.*",
-        "webpack-plugin"
+        "webpack-plugin",
+        "copyContentFromTo/"
     ],
     "rules": {
         "react/jsx-filename-extension": [

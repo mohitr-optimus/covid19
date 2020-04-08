@@ -13,7 +13,7 @@ export default function AppJSX({ dataProvider, dataParser }) {
 				<Subtitle isSize={6} style={{ marginBottom: 0 }}>
 					live data per country: related to Covid - 19 diagnosis, recovery and death
 					<br />
-					updated thrice a day
+					updated thrice a Day
 				</Subtitle>
 				<Drawer />
 				<Container style={{ padding: 48, lineHeight: 2, maxWidth: 720 }}>

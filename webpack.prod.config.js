@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -31,14 +30,13 @@ const mergedConfig = merge(common, {
 		],
 	},
 	plugins: [
-		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({
 			filename: './style/[name].[hash].css',
 		}),
 		new webpack.SourceMapDevToolPlugin({
 			filename: 'sourcemaps/[file].map',
 			exclude: /\.(css|scss|sass)$/,
-			publicPath: 'https://localhost:9000/',
+			publicPath: 'https://mohitr-optimus.github.io',
 		}),
 		new BundleAnalyzerPlugin({
 			analyzerMode: 'static',
