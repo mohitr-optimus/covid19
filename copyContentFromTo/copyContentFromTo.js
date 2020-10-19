@@ -5,7 +5,7 @@ const source = "/Users/mohpuroh/Documents/Projects/POCs/CoVid/covid19/dist";
 const destination = "/Users/mohpuroh/Documents/Projects/POCs/CoVid/githubIO/mohitr-optimus.github.io";
 
 const USER = 'mohitr-optimus';
-const PASS = 'Mrp9889978545#';
+const PASS = 'test123';
 const REPO = 'https://github.com/mohitr-optimus/covid19';
 const simpleGit = require('simple-git');
 const remote = `https://${USER}:${PASS}@${REPO}`;
